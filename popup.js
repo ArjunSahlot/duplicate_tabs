@@ -32,5 +32,5 @@ chrome.tabs.query({}, function (tabs) {
 		}
 	});
 	chrome.tabs.move(dupids, { index: -1 });
-	alert(dupids.length().toString() + " duplicates");
+	alert(dupids.length.toString() + " duplicates");
 });
