@@ -23,14 +23,20 @@
 
 chrome.tabs.query({}, function (tabs) {
 	let all = [];
+	let dups = [];
 	let dupids = [];
 	tabs.forEach(function (tab) {
 		if (all.includes(tab.url)) {
 			dupids.push(tab.id);
+			dups.push(tab);
 		} else {
 			all.push(tab.url);
 		}
 	});
-	chrome.tabs.move(dupids, { index: -1 });
 	alert(dupids.length.toString() + " duplicates");
+	chrome.tabs.move(dupids, { index: -1 });
+	dups.forEach((dup) => {
+		alert("Deleting " + dup.url + ". Click the extension again to stop");
+		chrome.tabs.remove(dup.id);
+	});
 });
