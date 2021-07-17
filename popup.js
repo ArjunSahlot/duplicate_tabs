@@ -23,12 +23,14 @@
 
 chrome.tabs.query({}, function (tabs) {
 	let all = [];
+	let dupids = [];
 	tabs.forEach(function (tab) {
 		if (all.includes(tab.url)) {
-			alert("Deleting " + tab.url);
-			chrome.tabs.remove(tab.id);
+			dupids.push(tab.id);
 		} else {
 			all.push(tab.url);
 		}
 	});
+	chrome.tabs.move(dupids, { index: -1 });
+	alert(dupids.length().toString() + " duplicates");
 });
